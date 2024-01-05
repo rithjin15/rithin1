@@ -1,0 +1,22 @@
+from sklearn.pipeline import Pipeline
+from sklearn.preprocessing import StandardScaler
+from sklearn.decomposition import PCA
+from sklearn.ensemble import RandomForestClassifier
+from sklearn.model_selection import train_test_split
+from sklearn.metrics import accuracy_score
+
+
+steps = [
+    ('scaler', StandardScaler()),
+    ('pca', PCA(n_components=5)),
+    ('classifier', RandomForestClassifier(n_estimators=100, random_state=42))
+]
+
+pipeline = Pipeline(steps)
+
+pipeline.fit(X_train, y_train)
+
+y_pred = pipeline.predict(X_test)
+
+accuracy = accuracy_score(y_test, y_pred)
+print(f'Accuracy: {accuracy}')
